@@ -1,14 +1,13 @@
-# [Project 1: Noise](https://github.com/CIS700-Procedural-Graphics/Project1-Noise)
+# Three.js Project Template
 
 ## Objective
-
-Get comfortable with using three.js and its shader support and generate an interesting 3D, continuous surface using a multi-octave noise algorithm.
+This is a Three.js Project Template to clone and start a new project. Basically this sets up deployment into the web, test and run project with auto-update, and steps for publishing. Adapted from CIS 700: Procedural Animation from the University of Pennsylvania (Spring 2017)
 
 ## Getting Started
 
 1. [Install Node.js](https://nodejs.org/en/download/). Node.js is a JavaScript runtime. It basically allows you to run JavaScript when not in a browser. For our purposes, this is not necessary. The important part is that with it comes `npm`, the Node Package Manager. This allows us to easily declare and install external dependencies such as [three.js](https://threejs.org/), [dat.GUI](https://workshop.chromeexperiments.com/examples/gui/#1--Basic-Usage), and [glMatrix](http://glmatrix.net/). Some other packages we'll be using make it significantly easier to develop your code and create modules for better code reuse and clarity. These tools make it _signficantly_ easier to write code in multiple `.js` files without globally defining everything.
 
-2. Fork and clone [this repository](https://github.com/CIS700-Procedural-Graphics/Project1-Noise).
+2. Fork and clone this repository
 
 3. In the root directory of your project, run `npm install`. This will download all of those dependencies.
 
@@ -70,49 +69,10 @@ Create [an icosahedron](https://threejs.org/docs/index.html#Reference/Geometries
 
 Note that three.js automatically injects several uniform and attribute variables into your shaders by default; they are listed in the [documentation](https://threejs.org/docs/api/renderers/webgl/WebGLProgram.html) for three.js's WebGLProgram class.
 
-## Noise Generation
-
-In the shader, write a 3D multi-octave lattice-value noise function that takes three input parameters and generates output in a controlled range, say [0,1] or [-1, 1]. This will require the following steps. 
-
-1. Write several (for however many octaves of noise you want) basic pseudo-random 3D noise functions (the hash-like functions we discussed in class). It's fine to reference one from the slides or elsewhere on the Internet. Again, this should just be a set of math operations, often using large prime numbers to random-looking output from three input parameters.
-
-2. Write an interpolation function. Lerp is fine, but for better results, we suggest cosine interpolation.
-
-3. (Optional) Write a smoothing function that will average the results of the noise value at some (x, y, z) with neighboring values, that is (x+-1, y+-1, z+-1).
-
-4. Write an 'interpolate noise' function that takes some (x, y, z) point as input and produces a noise value for that point by interpolating the surrounding lattice values (for 3D, this means the surrounding eight 'corner' points). Use your interpolation function and pseudo-random noise generator to accomplish this.
-
-5. Write a multi-octave noise generation function that sums multiple noise functions together, with each subsequent noise function increasing in frequency and decreasing in amplitude. You should use the interpolate noise function you wrote previously to accomplish this, as it generates a single octave of noise. The slides contain pseudocode for writing your multi-octave noise function.
-
-
-## Noise Application
-
-View your noise in action by applying it as a displacement on the surface of your icosahedron, giving your icosahedron a bumpy, cloud-like appearance. Simply take the noise value as a height, and offset the vertices along the icosahedron's surface normals. You are, of course, free to alter the way your noise perturbs your icosahedron's surface as you see fit; we are simply recommending an easy way to visualize your noise. You could even apply a couple of different noise functions to perturb your surface to make it even less spherical.
-
-In order to animate the vertex displacement, use time as the third dimension or as some offset to the (x, y, z) input to the noise function. Pass the current time since start of program as a uniform to the shaders.
-
-For both visual impact and debugging help, also apply color to your geometry using the noise value at each point. There are several ways to do this. For example, you might use the noise value to create UV coordinates to read from a texture (say, a simple gradient image), or just compute the color by hand by lerping between values.
-
 ## Interactivity
 
 Using dat.GUI and the examples provided in the reference code, make some aspect of your demo an interactive variable. For example, you could add a slider to adjust the strength or scale of the noise, change the number of noise octaves, etc.
 
-## For the overachievers (extra credit)
-
-- More interactivity (easy): pretty self-explanatory. Make more aspects of your demo interactive by adding more controlable variables in the GUI.
-
-- Custom mesh (easy): Figure out how to import a custom mesh rather than using an icosahedron for a fancy-shaped cloud.
-
-- Mouse interactivity (medium): Find out how to get the current mouse position in your scene and use it to deform your cloud, such that users can deform the cloud with their cursor.
-
-- Music (hard): Figure out a way to use music to drive your noise animation in some way, such that your noise cloud appears to dance.
-
-## Submission
-
+## When you finish your project, don't forget to do the following!
 - Update README.md to contain a solid description of your project
-
 - Publish your project to gh-pages. `npm run deploy`. It should now be visible at http://username.github.io/repo-name
-
-- Create a [pull request](https://help.github.com/articles/creating-a-pull-request/) to this repository, and in the comment, include a link to your published project.
-
-- Submit the link to your pull request on Canvas.
